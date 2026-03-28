@@ -28,11 +28,20 @@ public class ReceivingService {
     public String receiveStock(ReceivingRequest request){
         Product product=productRepository.findById(request.getProductId())
                 .orElseThrow(()->new RuntimeException("Product not found"));
+        String zone;
+
+        if(product.getCategory().equalsIgnoreCase("Electronics")) {
+            zone = "E";
+        } else if(product.getCategory().equalsIgnoreCase("Food")) {
+            zone = "F";
+        } else {
+            zone = "G"; // general
+        }
 
         // Find suitable bin (Putaway Logic)
-        StorageBin bin=binRepository.findFirstByCapacityGreaterThan(request.getQuantity());
-        if(bin==null){
-            throw new RuntimeException("No Bin Available");
+        StorageBin bin = binRepository.findFirstByZone(zone);
+        if(bin == null || (bin.getCapacity() - bin.getUsedCapacity()) < request.getQuantity()) {
+            throw new RuntimeException("No suitable bin available");
         }
 
         //create Inventory Record
