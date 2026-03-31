@@ -1,7 +1,7 @@
 package com.wms.warehouseMS.controller;
 
 import com.wms.warehouseMS.util.BarcodeUtil;
-import lombok.var;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -3,7 +3,7 @@ package com.wms.warehouseMS.util;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.QRCodeWriter;
-import lombok.var;
+
 
 import java.awt.image.BufferedImage;
 
