@@ -10,6 +10,7 @@ public class OrderItem {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
     private int quantity;
 

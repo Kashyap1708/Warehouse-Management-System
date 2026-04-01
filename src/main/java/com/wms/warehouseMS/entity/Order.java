@@ -12,7 +12,9 @@ public class Order {
     private Long id;
     private String status;   //pending,packed,shipped
 
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id")
     private List<OrderItem> items;
 
     public Long getId() {
