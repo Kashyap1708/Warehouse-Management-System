@@ -38,12 +38,12 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException("Order not found"));
 
         if (order.getItems() == null || order.getItems().isEmpty()) {
-            throw new RuntimeException("Order has no items");
+            throw new RuntimeException("Order has no item");
         }
 
         for (OrderItem item : order.getItems()) {
             if (item.getProduct() == null || item.getProduct().getId() == null) {
-                throw new RuntimeException("Product ID is missing in order item");
+                throw new RuntimeException("Product ID is missing in order");
             }
 
             InventoryItem inventory = inventoryRepository
@@ -59,7 +59,7 @@ public class OrderService {
                 );
             }
 
-            System.out.println("Reducing stock for product: " + item.getProduct().getName());
+            System.out.println("Reducing stock from product: " + item.getProduct().getName());
 
             inventory.setQuantity(inventory.getQuantity() - item.getQuantity());
         }
