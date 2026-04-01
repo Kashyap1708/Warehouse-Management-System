@@ -23,6 +23,6 @@ public class OrderController {
     @PostMapping("/{id}/pack")
     public String packOrder(@PathVariable Long id) {
         orderService.packOrder(id);
-        return "Order packed successfully";
+        return "your order packed successfully";
     }
 }

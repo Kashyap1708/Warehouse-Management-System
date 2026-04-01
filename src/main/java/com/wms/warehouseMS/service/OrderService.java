@@ -77,7 +77,7 @@ public class OrderService {
 
 
         for (OrderItemRequest itemReq : request.getItems()) {
-            System.out.println("Incoming Product ID: " + itemReq.getProductId());
+            System.out.println("Incoming ProductID: " + itemReq.getProductId());
 
             Product product = productRepository.findById(itemReq.getProductId())
                     .orElseThrow(() -> new RuntimeException("Product not found"));
