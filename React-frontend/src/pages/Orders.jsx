@@ -1,34 +1,19 @@
 import { useState } from "react";
-import API from "../api/api";
+import API from "../services/api";
 
 const Orders = () => {
-  const [orderId, setOrderId] = useState("");
+  const [data, setData] = useState({});
 
-  const packOrder = async () => {
-    await API.post(`/orders/${orderId}/pack`);
-    alert("Order Packed");
+  const createOrder = async () => {
+    await API.post("/orders", data);
+    alert("Order Created");
   };
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">Orders</h2>
-
-      <div className="bg-white p-6 rounded-xl shadow w-96">
-
-        <input
-          type="number"
-          placeholder="Order ID"
-          className="w-full p-2 border rounded mb-4"
-          onChange={(e) => setOrderId(e.target.value)}
-        />
-
-        <button
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-          onClick={packOrder}
-        >
-          Pack Order
-        </button>
-      </div>
+      <button onClick={createOrder} className="bg-green-500 text-white p-2">
+        Create Order
+      </button>
     </div>
   );
 };

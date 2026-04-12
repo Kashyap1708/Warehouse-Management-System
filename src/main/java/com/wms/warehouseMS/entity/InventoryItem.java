@@ -9,9 +9,11 @@ public class InventoryItem {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private int quantity;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id")
     private Product product;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "storage_bin_id")
     private StorageBin storageBin;
 
     public Long getId() {

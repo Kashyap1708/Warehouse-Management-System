@@ -1,43 +1,39 @@
-// src/pages/Login.jsx
-
-import { useState } from "react";
-import API from "../api/api";
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const { login } = useContext(AuthContext);
   const [username, setUsername] = useState("");
-  const navigate = useNavigate();
+  const navigate =useNavigate();
 
-  const handleLogin = async () => {
-    try {
-      const res = await API.post("/auth/login", { username });
-
-      // Assuming backend later returns role also
-      localStorage.setItem("token", res.data.token || res.data);
-      localStorage.setItem("role", res.data.role || "ADMIN");
-
+  const handleLogin=async()=>{
+    try{
+      await login(username);
       navigate("/dashboard");
-    } catch (err) {
+    }
+    catch(err){
+      console.log(err);
       alert("Login failed");
     }
   };
-
   return (
-    <div className="flex items-center justify-center h-screen bg-gradient-to-r from-blue-500 to-indigo-600">
-
-      <div className="bg-white p-8 rounded-2xl shadow-lg w-80">
-        <h2 className="text-2xl font-bold mb-6 text-center">WMS Login</h2>
-
+    <div className="flex items-center justify-center h-screen">
+      <div className="p-6 shadow bg-white">
         <input
-          type="text"
-          placeholder="Enter Username"
-          className="w-full p-2 border rounded mb-4"
+        value={username}
+          placeholder="Username"
+          className="border p-2"
           onChange={(e) => setUsername(e.target.value)}
         />
-
         <button
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white p-2 rounded"
-          onClick={handleLogin}
+          className="bg-blue-500 text-white px-4 py-2 ml-2"
+          onClick={async() =>{
+            const success=await login(username);
+            if(success){
+              navigate("/dashboard");
+            }
+          }}
         >
           Login
         </button>
